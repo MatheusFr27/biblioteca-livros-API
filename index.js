@@ -1,9 +1,16 @@
+// Importações
+
 const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
 const PORT = process.env.PORT || 3000
+
+const dataBase = require('./src/config/database')
+
+
+// Configurações
 
 // Configurar Body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -20,6 +27,9 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Header', 'Origin, X-Requestred-With, Content-Type, Accept')
     next()
 })
+
+
+// Rotas
 
 // Inserir / no endpoint
 app.get('/', (req, res) => {

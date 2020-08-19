@@ -1,0 +1,19 @@
+{
+  "name": "biblioteca-livros-api",
+  "version": "1.0.0",
+  "description": "API produzida para treinamento do GPES",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatheusFr27/biblioteca-livros-API.git"
+  },
+  "author": "Matheus E. França",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatheusFr27/biblioteca-livros-API/issues"
+  },
+  "homepage": "https://github.com/MatheusFr27/biblioteca-livros-API#readme"
+}

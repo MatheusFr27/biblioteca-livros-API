@@ -54,6 +54,19 @@ class Livros {
             }
         })
     }
+
+    deletandoLivro (req, res) {
+        const tituloL = req.params.titulo
+
+        modelolivro.deleteOne({titulo: tituloL}, (err, data) => {
+
+            if (err) {
+                res.status(500).send({ message: `Houve um problema ao deletar o livro ${titulo} do banco de dados`, error: err })
+            } else {
+                res.status(200).send({ message: `Livro ${tituloL} deletado com sucesso.`, livro: data})
+            }
+        })
+    }
 }
 
 module.exports = new Livros()

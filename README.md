@@ -8,3 +8,8 @@ Uma API para gerenciar livros.
    -Editora;
    -Tipo;
    -Quantidade.
+
+A fazer:
+  - Criar Controllers
+  - Routes
+  - importar controllers e routes para Index.js

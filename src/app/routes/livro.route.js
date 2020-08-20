@@ -19,5 +19,8 @@ route.get('/visualizarUmLivro/:titulo', Livro.visualizarUmLivro)
 // Atualizando livro
 route.put('/atualizarLivro/:titulo', Livro.atualizandoLivro)
 
+// Deletando livro
+route.delete('/deletarLivro/:titulo', Livro.deletandoLivro)
+
 // exportar
 module.exports = route

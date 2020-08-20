@@ -37,7 +37,20 @@ class Livros {
             if (err) {
                 res.status(500).send({ message: 'Houve um problema ao localizar este livro.', error: err })
             } else {
-                res.status(200).send({ message: `Livro ${tituloL}, localizado com sucesso!`, livro: data })
+                res.status(200).send({ message: `O Livro selecionado foi alterado para ${tituloL} com sucesso!`, livro: data })
+            }
+        })
+    }
+
+    atualizandoLivro (req, res) {
+        const tituloL = req.params.titulo
+
+        modelolivro.updateOne({titulo: tituloL}, {$set: req.body}, (err, data) => {
+
+            if (err) {
+                res.status(500).send({ message: 'Houve um erro ao atualizar o livro.', error: err })
+            } else {
+                res.status(200).send({ message: `O livro ${tituloL} foi alterado com sucesso!`, livro: data })
             }
         })
     }

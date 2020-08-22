@@ -21,4 +21,4 @@ const ModeloAutor = new Schema({
     }
 )
 
-module.exports = module('modeloautor', ModeloAutor)
+module.exports = model('modeloautor', ModeloAutor)

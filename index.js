@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000
 const dataBase = require('./src/config/database')
 
 const livrosRoute = require('./src/app/routes/livro.route')
+const autorRoute = require('./src/app/routes/autor.route')
 
 
 // Configurações
@@ -35,6 +36,8 @@ app.use((req, res, next) => {
 
 // Colocar rota de Routes
 app.use('/livro', livrosRoute)
+
+app.use('/autor', autorRoute)
 
 // Inserir / no endpoint
 app.get('/', (req, res) => {

@@ -12,5 +12,7 @@ route.get('/visualizarTodosAutores', Autor.visualizarTodosAutores)
 
 route.get('/visualizarUmAutor/:nome', Autor.visualizarUmAutor)
 
+route.put('/atualizarAutor/:nome', Autor.atualizarAutor)
+
 // Exportação
 module.exports = route

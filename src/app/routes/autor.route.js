@@ -14,5 +14,7 @@ route.get('/visualizarUmAutor/:nome', Autor.visualizarUmAutor)
 
 route.put('/atualizarAutor/:nome', Autor.atualizarAutor)
 
+route.delete('/deletarAutor/:nome', Autor.deletarAutor)
+
 // Exportação
 module.exports = route

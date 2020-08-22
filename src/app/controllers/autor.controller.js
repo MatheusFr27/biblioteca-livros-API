@@ -53,6 +53,19 @@ class Autor {
         })
     }
 
+    deletarAutor (req, res) {
+        const nome = req.params.nome
+
+        modeloautor.deleteOne({nome: nome}, (err, data) => {
+
+            if (err) {
+                res.status(500).send({ message: 'Houve um problema ao deletar autor', error: err })
+            } else {
+                res.status(200).send({ message: 'Autor deletado com sucesso!', autor: data })
+            }
+        })
+    }
+
 }
 
 module.exports = new Autor()

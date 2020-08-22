@@ -40,6 +40,19 @@ class Autor {
         })
     }
 
+    atualizarAutor (req, res) {
+        const nome = req.params.nome
+
+        modeloautor.updateOne({nome: nome}, {$set: req.body}, (err, data) => {
+
+            if(err) {
+                res.status(500).send({ message: 'Houve um problema ao atualizar o Autor', error: err })
+            } else {
+                res.status(200).send({ message: 'Autor atualizado com sucesso', autor: data })
+            }
+        })
+    }
+
 }
 
 module.exports = new Autor()

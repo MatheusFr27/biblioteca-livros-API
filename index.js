@@ -41,12 +41,12 @@ app.use('/autor', autorRoute)
 
 // Inserir / no endpoint
 app.get('/', (req, res) => {
-    res.send({ message: `API atendendo na porta ${PORT}.`})
+    res.send({ message: `API atendendo na porta ${PORT}.` })
 })
 
 // Inserir caminho coringa
 app.use('*', (req, res) => {
-    res.send({ message: 'Caminho não encontrado.'})
+    res.send({ message: 'Caminho não encontrado.' })
 })
 
 // Iniciar servidor na porta respectiva

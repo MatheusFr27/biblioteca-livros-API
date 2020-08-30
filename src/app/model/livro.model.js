@@ -1,16 +1,11 @@
 // Importações
-const {Schema, model} = require('mongoose')
+const {Schema, model, Mongoose} = require('mongoose')
 
 
 // Modelo
 const ModeloLivro = new Schema({
 
     titulo: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    autor: {
         type: String,
         required: true,
         trim: true
@@ -28,6 +23,10 @@ const ModeloLivro = new Schema({
     quantidade: {
         type: Number,
         required: false,
+    },
+    autor: {
+        type: Schema.Types.ObjectId,
+        ref: 'autor'
     }
 },
     {
@@ -36,4 +35,4 @@ const ModeloLivro = new Schema({
     }
 )
 
-module.exports = model('modelolivro', ModeloLivro)
+module.exports = model('livro', ModeloLivro)

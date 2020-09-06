@@ -1,5 +1,5 @@
 // Importações
-const {Schema, model} = require('mongoose')
+const { Schema, model, Mongoose } = require('mongoose')
 
 // Modelo
 const ModeloAutor = new Schema({
@@ -10,10 +10,16 @@ const ModeloAutor = new Schema({
         maxlength: 51,
         trim: true
     },
-    nascimento: {
-        type: Date,
-        required: false,
-    }
+    idade: {
+        type: Number,
+        required: false
+    },
+    autoria: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'livro'
+        }
+    ]
 },
     {
         timestamps: true,
@@ -21,4 +27,4 @@ const ModeloAutor = new Schema({
     }
 )
 
-module.exports = model('modeloautor', ModeloAutor)
+module.exports = model('autor', ModeloAutor)

@@ -45,7 +45,7 @@ class Autor {
     }
 
     atualizarAutor(req, res) {
-        const nome = req.params
+        const nome = req.params.nome
 
         autor.updateOne({ nome: nome }, { $set: req.body }, (err, data) => {
 

@@ -36,7 +36,7 @@ class Livros {
     visualizarTodosLivros(req, res) {
 
         livro.find({})
-            .populate('autor', { nome: 1 })
+            .populate('autor', { nome: 1, imagemA: 1 })
             .sort({ nome: 1 })
             .exec((err, data) => {
 
@@ -56,7 +56,7 @@ class Livros {
         const  tituloL = req.params.titulo
 
         livro.find({ titulo: tituloL })
-            .populate('autor', { nome: 1 })
+            .populate('autor', { nome: 1, imagemA: 1 })
             .exec((err, data) => {
 
                 if (err) {

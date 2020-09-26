@@ -12,16 +12,20 @@ const ModeloLivro = new Schema({
     },
     editora: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     tipo: {
         type: String,
-        required: false,
+        required: true,
         trim: true
     },
-    quantidade: {
-        type: Number,
+    descricao: {
+        type: String,
+        required: true,
+    },
+    imagemF: {
+        type: String,
         required: false,
     },
     autor: {

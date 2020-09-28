@@ -55,7 +55,7 @@ class Livros {
     visualizarUmLivro(req, res) {
         const  tituloL = req.params.titulo
 
-        livro.find({ titulo: tituloL })
+        livro.findOne({ titulo: tituloL })
             .populate('autor', { nome: 1, imagemA: 1 })
             .exec((err, data) => {
 

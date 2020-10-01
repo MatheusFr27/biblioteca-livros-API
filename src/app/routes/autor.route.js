@@ -16,8 +16,7 @@ route.put('/atualizarAutor/:nome', Autor.atualizarAutor)
 
 route.delete('/deletarAutor/:nome', Autor.deletarAutor)
 
-
-route.get('/visualizandoAutorELivros/:nome', Autor.visualizandoAutorELivros)
+route.get('/validarNomeAutor', Autor.validarNomeAutor)
 
 
 // Exportação

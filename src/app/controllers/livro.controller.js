@@ -92,6 +92,22 @@ class Livros {
             }
         })
     }
+
+    validarNomeLivro(req, res){
+        const nome = req.query.titulo.replace(/%20/g, " ")
+
+        livro.find({titulo: {'$regex': `^$(nome)$`, '$options': 'i '}}, (err, result) => {
+            if (err) {
+                res.status(500).send({ message: 'Houve um erro ao processar sua requisição. '})
+            } else {
+                if (result.length > 0) {
+                    res.status(200).send({ message: 'Já existe um livro cadastrado com esse título.', data: result.length })
+                } else {
+                    res.status(200).send({ message: 'Livro disponivel', data: result.length })
+                }
+            }
+        })
+    }
 }
 
 module.exports = new Livros()

@@ -36,7 +36,7 @@ class Livros {
     visualizarTodosLivros(req, res) {
 
         livro.find({})
-            .populate('autor', { nome: 1 })
+            .populate('autor', { nome: 1, imagemA: 1 })
             .sort({ nome: 1 })
             .exec((err, data) => {
 
@@ -55,8 +55,8 @@ class Livros {
     visualizarUmLivro(req, res) {
         const  tituloL = req.params.titulo
 
-        livro.find({ titulo: tituloL })
-            .populate('autor', { nome: 1 })
+        livro.findOne({ titulo: tituloL })
+            .populate('autor', { nome: 1, imagemA: 1 })
             .exec((err, data) => {
 
                 if (err) {
@@ -89,6 +89,22 @@ class Livros {
                 res.status(500).send({ message: `Houve um problema ao deletar o livro ${titulo} do banco de dados`, error: err })
             } else {
                 res.status(200).send({ message: `Livro ${tituloL} deletado com sucesso.`, livro: data })
+            }
+        })
+    }
+
+    validarNomeLivro(req, res){
+        const nome = req.query.titulo.replace(/%20/g, " ")
+
+        livro.find({titulo: {'$regex': `^$(nome)$`, '$options': 'i '}}, (err, result) => {
+            if (err) {
+                res.status(500).send({ message: 'Houve um erro ao processar sua requisição. '})
+            } else {
+                if (result.length > 0) {
+                    res.status(200).send({ message: 'Já existe um livro cadastrado com esse título.', data: result.length })
+                } else {
+                    res.status(200).send({ message: 'Livro disponivel', data: result.length })
+                }
             }
         })
     }

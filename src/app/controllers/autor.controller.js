@@ -45,7 +45,7 @@ class Autor {
     }
 
     atualizarAutor(req, res) {
-        const nome = req.params
+        const nome = req.params.nome
 
         autor.updateOne({ nome: nome }, { $set: req.body }, (err, data) => {
 
@@ -83,6 +83,22 @@ class Autor {
                     res.status(200).send({ message: 'Livros do autor encontrados com sucesso.', autor: data })
                 }
             })
+    }
+
+    validarNomeAutor(req, res){
+        const nome = req.query.nome.replace(/%20/g, " ")
+
+        autor.find({nome: {'$regex': `^$(nome)$`, '$options': 'i '}}, (err, result) => {
+            if (err) {
+                res.status(500).send({ message: 'Houve um erro ao processar sua requisição. '})
+            } else {
+                if (result.length > 0) {
+                    res.status(200).send({ message: 'Já existe um autor cadastrado com esse título.', data: result.length })
+                } else {
+                    res.status(200).send({ message: 'Autor disponivel', data: result.length })
+                }
+            }
+        })
     }
 
 }

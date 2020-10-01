@@ -14,6 +14,14 @@ const ModeloAutor = new Schema({
         type: Number,
         required: false
     },
+    biografia: {
+        type: String,
+        required: false,
+    },
+    imagemA: {
+        type: String,
+        required: false,
+    },
     autoria: [
         {
             type: Schema.Types.ObjectId,

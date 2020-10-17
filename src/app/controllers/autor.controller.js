@@ -31,7 +31,7 @@ class Autor {
     visualizarUmAutor(req, res) {
         const nome = req.params.nome
 
-        autor.find({ nome: nome })
+        autor.findOne({ nome: nome })
         .populate('livro', { titulo: 1 })
         .exec((err, data) => {
 

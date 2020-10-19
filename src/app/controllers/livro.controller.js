@@ -68,27 +68,71 @@ class Livros {
     }
 
     atualizandoLivro(req, res) {
-        const tituloL = req.params.titulo
+        const {bookId} = req.params
+        const reqBody = req.body
+        const authorId = reqBody['autor']
 
-        livro.updateOne({ titulo: tituloL }, { $set: req.body }, (err, data) => {
+        livro.updateOne({ _id: bookId }, { $set: reqBody }, (err, data) => {
 
             if (err) {
                 res.status(500).send({ message: 'Houve um erro ao atualizar o livro.', error: err })
             } else {
-                res.status(200).send({ message: `O livro ${tituloL} foi alterado com sucesso!`, livro: data })
+                autor.findOne({livro: bookId}, (err, result)=> {
+                    if(err){
+                        res.status(500).send({ message: 'Houve um erro ao processar a sua requisição'})
+                    } else {
+                        if(result['_id'] == authorId){
+                            res.status(200).send({ message: 'O livro foi atualizado com sucesso.', data: livro })
+                        } else {
+                            result.livros.pull(bookId)
+                            result.save({}, (err) => {
+                                if(err){
+                                    res.status(500).send({ message: 'Houve um erro ao processar sua requisição '})
+                                } else {
+                                    autor.findById(authorId, (err, autor) => {
+                                        if(err){
+                                            res.status(500).send({ message: 'Houve um erro ao processar sua requisição '})
+                                        } else {
+                                            autor.livros.push(bookId)
+                                            autor.save({}, (err) => {
+                                                if(err){
+                                                    res.status(500).send({ message: 'Houve um erro ao processar sua requisição'})
+                                                }else {
+                                                    res.status(200).send({ message: 'Livro atualizado com sucesso'})
+                                                }
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    }
+                })
             }
         })
     }
 
     deletandoLivro(req, res) {
-        const tituloL = req.params.titulo
+        const { bookId } = req.params
 
-        livro.deleteOne({ titulo: tituloL }, (err, data) => {
-
-            if (err) {
-                res.status(500).send({ message: `Houve um problema ao deletar o livro ${titulo} do banco de dados`, error: err })
+        autor.findById({ livros: bookId}, (err, autor) => {
+            if(err) {
+                res.status(500).send({ message: 'Houve um erro ao processar a sua requisição', error: err})
             } else {
-                res.status(200).send({ message: `Livro ${tituloL} deletado com sucesso.`, livro: data })
+                autor.livros.pull(bookId)
+                autor.save((err) => {
+                    if(err) {
+                        res.status(500).send({ message: 'Houve um erro ao processar a sua requisição', error: err})
+                    }else {
+                        livro.deleteOne({ _id: bookId}, (err, result) => {
+                            if(err) {
+                                res.status(500).send({ message: 'Houve um erro ao processar a sua requisição', error: err})
+                            }else {
+                                res.status(200).send({ message: 'Livro apagado com sucesso', data: result})
+                            }
+                        })
+                    }
+                })
             }
         })
     }

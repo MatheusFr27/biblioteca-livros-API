@@ -113,14 +113,26 @@ class Livros {
     }
 
     deletandoLivro(req, res) {
-        const tituloL = req.params.titulo
+        const { bookId } = req.params
 
-        livro.deleteOne({ titulo: tituloL }, (err, data) => {
-
-            if (err) {
-                res.status(500).send({ message: `Houve um problema ao deletar o livro ${titulo} do banco de dados`, error: err })
+        autor.findById({ livros: bookId}, (err, autor) => {
+            if(err) {
+                res.status(500).send({ message: 'Houve um erro ao processar a sua requisição', error: err})
             } else {
-                res.status(200).send({ message: `Livro ${tituloL} deletado com sucesso.`, livro: data })
+                autor.livros.pull(bookId)
+                autor.save((err) => {
+                    if(err) {
+                        res.status(500).send({ message: 'Houve um erro ao processar a sua requisição', error: err})
+                    }else {
+                        livro.deleteOne({ _id: bookId}, (err, result) => {
+                            if(err) {
+                                res.status(500).send({ message: 'Houve um erro ao processar a sua requisição', error: err})
+                            }else {
+                                res.status(200).send({ message: 'Livro apagado com sucesso', data: result})
+                            }
+                        })
+                    }
+                })
             }
         })
     }
